@@ -1,7 +1,5 @@
-# Bite-Game
+# Piano Estails
 
-Juego online multijugador hecho en Unity. 
+Como el piano tiles del Google Play no tiene las canciones que me gustan, pues me las hago yop
 
-Es un juego por turnos de coña donde los personajes somos mis colegas y yo. 
-
-Esperamos exprimirlo mucho y morirnos de las risas
+A lo mejor hasta lo hago multiplayer
