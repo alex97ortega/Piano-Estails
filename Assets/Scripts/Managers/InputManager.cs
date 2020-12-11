@@ -52,7 +52,7 @@ public class InputManager : MonoBehaviour
 #endif
     private Vector2 ToWorldPoint(Vector3 screenPoint)
     {
-        Vector3 vect = new Vector3(screenPoint.x, screenPoint.y, -10);
+        Vector3 vect = new Vector3(screenPoint.x, screenPoint.y, 0);
         Vector2 ret = mainCamera.ScreenToWorldPoint(vect);
         return ret;
     }

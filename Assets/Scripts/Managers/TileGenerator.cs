@@ -5,14 +5,17 @@ using UnityEngine;
 public class TileGenerator : MonoBehaviour
 {
     public Tile tilePrefab;
+    public SongManager songManager;
 
     List<Tile> tiles;
     Tile lastTileCreated;
     float lastTileX;
+    int currentTecla;
 
     // Start is called before the first frame update
     void Start()
     {
+        currentTecla = 0;
         tiles = new List<Tile>();
         lastTileCreated = Instantiate(tilePrefab);
         lastTileX = -2.25f + 1.5f * Random.Range(0, 4);
@@ -44,7 +47,13 @@ public class TileGenerator : MonoBehaviour
         {
             if (t && t.Inside(x, y))
             {
-                t.Tap();
+                if(!t.IsTapped())
+                {
+                    t.Tap();
+                    songManager.PlayTecla(currentTecla);
+                    FindObjectOfType<GameManager>().IncrPuntos(1);
+                    currentTecla++;
+                }
                 return;
             }
         }

@@ -5,6 +5,7 @@ using UnityEngine;
 public class Tile : MonoBehaviour
 {
     public Sprite tilePressed;
+    bool tapped = false;
 
     // Start is called before the first frame update
     void Start()
@@ -20,7 +21,7 @@ public class Tile : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        transform.position -= new Vector3(0, 2*Time.deltaTime, 0);
+        transform.position -= new Vector3(0, 6*Time.deltaTime, 0);
         if (transform.position.y <= -6.25f)
             Destroy(gameObject);
     }
@@ -41,10 +42,13 @@ public class Tile : MonoBehaviour
     public void Tap()
     {
         GetComponent<SpriteRenderer>().sprite = tilePressed;
+        tapped = true;
     }
 
     public bool CanCreateNewTile()
     {
         return (transform.position.y <= 3.9f);
     }
+
+    public bool IsTapped() { return tapped; }
 }

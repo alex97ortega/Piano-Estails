@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+    int puntosNivel;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -15,4 +17,10 @@ public class GameManager : MonoBehaviour
     {
         
     }
+
+    public void IncrPuntos(int ptos)
+    {
+        puntosNivel += ptos;
+    }
+    public int GetPuntos() { return puntosNivel; }
 }
