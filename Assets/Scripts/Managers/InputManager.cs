@@ -20,7 +20,7 @@ public class InputManager : MonoBehaviour
 #if UNITY_EDITOR
     void CheckPCInput()
     {
-        if (Input.GetMouseButton(0))
+        if (Input.GetMouseButtonDown(0))
         {
             OnTouchDown(Input.mousePosition);
         }

@@ -4,12 +4,13 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+    int numCancion;
     int puntosNivel;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        numCancion = 0;
     }
 
     // Update is called once per frame
@@ -23,4 +24,5 @@ public class GameManager : MonoBehaviour
         puntosNivel += ptos;
     }
     public int GetPuntos() { return puntosNivel; }
+    public int GetNumCancion() { return numCancion; }
 }

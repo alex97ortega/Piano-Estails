@@ -10,9 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 7654877979360213016}
   - component: {fileID: 7654877979360213017}
-  - component: {fileID: -40798361794586093}
+  - component: {fileID: -3611397568823661137}
   m_Layer: 0
-  m_Name: Tile
+  m_Name: DoubleTile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -82,7 +82,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &-40798361794586093
+--- !u!114 &-3611397568823661137
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -91,7 +91,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 7654877979360213018}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 931406d0971ea0444afe3aebb4065640, type: 3}
+  m_Script: {fileID: 11500000, guid: ef2a1d377b85abb4993c447dd0cb219b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   tilePressed: {fileID: 21300000, guid: d23d20a78441c144ebd1233211f9bd6a, type: 3}
+  doubleTilePrefab: {fileID: -3611397568823661137}
