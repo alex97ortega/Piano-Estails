@@ -14,6 +14,7 @@ public class PuntosNivel : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        GetComponent<Text>().text = gm.GetPuntos().ToString();
+        if(gm)
+            GetComponent<Text>().text = gm.GetPuntos().ToString();
     }
 }

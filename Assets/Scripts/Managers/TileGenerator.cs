@@ -1,12 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class TileGenerator : MonoBehaviour
 {
     public NormalTile normalTilePrefab;
     public DoubleTile doubleTilePrefab;
+    public LongTile longTilePrefab;
     public SongManager songManager;
     public Parser parser;
     public GameObject gameOver;
@@ -63,12 +63,10 @@ public class TileGenerator : MonoBehaviour
             {
                 TeclaPresionada(tileToPress);
             }
-            else if (posibleTileToPress.Inside(x, y))
+            if (posibleTileToPress.Inside(x, y))
             {
                 TeclaPresionada(posibleTileToPress);
             }
-            else
-                GameOver();
         }
         else
         {
@@ -85,7 +83,9 @@ public class TileGenerator : MonoBehaviour
         tilePresionada.Tap();
         if (tilePresionada.TilePressFinished())
         {
-            FindObjectOfType<GameManager>().IncrPuntos(1);
+            GameManager gm = FindObjectOfType<GameManager>();
+            if(gm)
+                gm.IncrPuntos(1);
             currentTecla++;
             //buscar la proxima tecla que se puede tapear
             tileToPress = null; // esto es necesario por si presionamos una tecla sin que haya aparecido la siguiente
@@ -106,6 +106,7 @@ public class TileGenerator : MonoBehaviour
     {
         int nextTile = tilesToCreate.Dequeue();
 
+        int tam = 1; // tamaño de la tecla por si es de las largas
         float newX;
         do
         {
@@ -134,11 +135,21 @@ public class TileGenerator : MonoBehaviour
                 lastTileCreated = Instantiate(normalTilePrefab);
                 break;
             default:
+                tam = nextTile;
+                // para que no coincida misma posicion con ninguna de las 2 teclas anteriores
+                if (lastTileCreated.GetComponent<DoubleTile>() != null)
+                {
+                    if (lastTileX == -2.25f || lastTileX == 0.75f)
+                        newX = -0.75f + 3 * Random.Range(0, 2);
+                    else
+                        newX = -2.25f + 3 * Random.Range(0, 2);
+                }
+                lastTileCreated = Instantiate(longTilePrefab);
                 break;
         }
 
         lastTileX = newX;
-        lastTileCreated.SetProperties(newX, tilesCreated, this);
+        lastTileCreated.SetProperties(newX, tilesCreated, tam, this);
         tiles.Add(lastTileCreated);
         tilesCreated++;
 
@@ -155,6 +166,4 @@ public class TileGenerator : MonoBehaviour
         songManager.PlayTecla(currentTecla);
     }
     public float GetVel() { return ((initialVel +(0.1f * (Time.time-startTime))) * Time.deltaTime) ; }
-    //provisional
-    public void RestartLevel() { SceneManager.LoadScene("GamePlay"); }
 }

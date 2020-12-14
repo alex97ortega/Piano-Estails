@@ -11,7 +11,10 @@ public class Parser : MonoBehaviour
     public Queue<int> ParseTxtCurrentSong()
     {
         GameManager gm = FindObjectOfType<GameManager>();
-        string file = songsTxts[gm.GetNumCancion()].text;
+        int cancion = 0;
+        if (gm)
+            cancion = gm.GetNumCancion();
+        string file = songsTxts[cancion].text;
 
         Queue<int> tileQueue = new Queue<int>();
 

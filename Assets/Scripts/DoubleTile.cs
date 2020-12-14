@@ -10,6 +10,7 @@ public class DoubleTile : Tile
     public void SetPartner(DoubleTile t) { partner = t; }
     public DoubleTile GetPartner() { return partner; }
 
+    // each frame called from Update
     protected override void TileFrame()
     {
         transform.position -= new Vector3(0, tileGenerator.GetVel(), 0);
@@ -22,7 +23,8 @@ public class DoubleTile : Tile
         }
     }
 
-    public override void SetProperties(float posX, int idTecla, TileGenerator tileG)
+    // set tile properties (position, id, length and parent)
+    public override void SetProperties(float posX, int idTecla, int tam, TileGenerator tileG)
     {
         transform.position = new Vector3(posX, transform.position.y, 0);
         id = idTecla;
@@ -48,26 +50,42 @@ public class DoubleTile : Tile
                     partnerPosX = -0.75f;
                     break;
             }
-            partner.SetProperties(partnerPosX, id, tileGenerator);
+            partner.SetProperties(partnerPosX, id, tam, tileGenerator);
         }
     }
 
+    // return true if can create the next tile after this one
     public override bool CanCreateNewTile()
     {
-        return (transform.position.y <= 3.9f);
+        return (transform.position.y <= 4);
     }
     public override bool TilePressFinished()
     {
         return (tapped && partner.IsTapped());
     }
+
+    // actions when the tile is tapped
     public override void Tap()
     {
-        if (!tapped)
+        if (!tapped && !tileGenerator.IsGameOver())
         {
             tapped = true;
             GetComponent<SpriteRenderer>().sprite = tilePressed;
             if(!partner.IsTapped())
                 tileGenerator.PlayTeclaSound();
         }
+    }
+
+    // return true if the point x,y is inside the tile
+    public override bool Inside(float x, float y)
+    {
+        float scaleX = transform.localScale.x / 2;
+        float scaleY = transform.localScale.y / 2;
+
+        if (x < (transform.position.x - scaleX) || x > (transform.position.x + scaleX))
+            return false;
+        if (y < (transform.position.y - scaleY) || y > (transform.position.y + scaleY))
+            return false;
+        return true;
     }
 }

@@ -32,21 +32,12 @@ public class InputManager : MonoBehaviour
 #else
     void CheckAndroidInput()
     {
-        if(Input.touchCount>0)
+        foreach (var touch in Input.touches) 
         {
-            Touch tch = Input.GetTouch(0);
-            switch (tch.phase)
+            if (touch.phase == TouchPhase.Began) 
             {
-                case TouchPhase.Began:
-                    OnTouchDown(tch.position);
-                    break;
-                case TouchPhase.Ended:
-                    OnTouchUp();
-                    break;
-                case TouchPhase.Moved:
-                    OnTouchDown(tch.position);
-                    break;
-            }                
+                OnTouchDown(touch.position);
+            }
         }
     }
 #endif

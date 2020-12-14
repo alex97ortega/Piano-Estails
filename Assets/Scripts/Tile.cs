@@ -25,26 +25,14 @@ public class Tile : MonoBehaviour
 
     // virtuales
     protected virtual void TileFrame() { }
-    public virtual void SetProperties(float posX, int idTecla, TileGenerator tileG) { }
+    public virtual void SetProperties(float posX, int idTecla, int tam, TileGenerator tileG) { }
     public virtual bool CanCreateNewTile() { return false; }
     public virtual bool TilePressFinished() { return tapped; } // esto es para ver si puede pasar a la siguiente tecla presionable
     public virtual void Tap() { }
+    // checkea si la coordenada x,y está dentro del tile
+    public virtual bool Inside(float x, float y) { return false; }
 
     // comunes
     public int GetId() { return id; }
     public bool IsTapped() { return tapped; }
-        
-
-    // checkea si la coordenada x,y está dentro del tile
-    public bool Inside(float x, float y)
-    {
-        float scaleX = transform.localScale.x / 2;
-        float scaleY = transform.localScale.y / 2;
-
-        if (x < (transform.position.x - scaleX) || x > (transform.position.x + scaleX))
-            return false;
-        if (y < (transform.position.y - scaleY) || y > (transform.position.y + scaleY))
-            return false;
-        return true;
-    }
 }
