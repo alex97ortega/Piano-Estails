@@ -10,6 +10,7 @@ public class TileGenerator : MonoBehaviour
     public SongManager songManager;
     public Parser parser;
     public GameObject gameOver;
+    public float[] velocitis;
 
     List<Tile> tiles;
     Queue<int> tilesToCreate;
@@ -19,7 +20,7 @@ public class TileGenerator : MonoBehaviour
     int currentTecla;
     int tilesCreated;
     bool isGameOver = false;
-    float initialVel = 4;
+    float initialVel;
     float startTime;
 
     enum TileType
@@ -32,6 +33,11 @@ public class TileGenerator : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        GameManager gm = FindObjectOfType<GameManager>();
+        if (gm)
+            initialVel = velocitis[gm.GetNumCancion()];
+        else
+            initialVel = 5;
         startTime = Time.time;
         tilesToCreate = parser.ParseTxtCurrentSong();
         
@@ -125,7 +131,7 @@ public class TileGenerator : MonoBehaviour
                 break;
             case 1:
                 // para que no coincida misma posicion con ninguna de las 2 teclas anteriores
-                if (lastTileCreated.GetComponent<DoubleTile>()!= null)
+                if (lastTileCreated && lastTileCreated.GetComponent<DoubleTile>()!= null)
                 {
                     if (lastTileX == -2.25f || lastTileX == 0.75f)
                         newX = -0.75f + 3 * Random.Range(0, 2);
@@ -137,7 +143,7 @@ public class TileGenerator : MonoBehaviour
             default:
                 tam = nextTile;
                 // para que no coincida misma posicion con ninguna de las 2 teclas anteriores
-                if (lastTileCreated.GetComponent<DoubleTile>() != null)
+                if (lastTileCreated && lastTileCreated.GetComponent<DoubleTile>() != null)
                 {
                     if (lastTileX == -2.25f || lastTileX == 0.75f)
                         newX = -0.75f + 3 * Random.Range(0, 2);
