@@ -18,9 +18,9 @@ public class NormalTile : Tile
     }
 
     // set tile properties (position, id, length and parent)
-    public override void SetProperties(float posX, int idTecla, int tam, TileGenerator tileG)
+    public override void SetProperties(float posX, int idTecla, int tam, TileGenerator tileG, float offy)
     {
-        transform.position = new Vector3(posX, transform.position.y, 0);
+        transform.position = new Vector3(posX, transform.position.y+offy, 0);
         id = idTecla;
         tileGenerator = tileG;
     }
@@ -53,5 +53,9 @@ public class NormalTile : Tile
         if (y < (transform.position.y - scaleY) || y > (transform.position.y + scaleY))
             return false;
         return true;
+    }
+    public override float GetOffY()
+    {
+        return (transform.position.y -4);
     }
 }

@@ -111,6 +111,9 @@ public class TileGenerator : MonoBehaviour
     private void CreateNewTile()
     {
         int nextTile = tilesToCreate.Dequeue();
+        float offY = 0;
+        if(lastTileCreated != null)
+            offY = lastTileCreated.GetOffY();
 
         int tam = 1; // tamaño de la tecla por si es de las largas
         float newX;
@@ -155,7 +158,7 @@ public class TileGenerator : MonoBehaviour
         }
 
         lastTileX = newX;
-        lastTileCreated.SetProperties(newX, tilesCreated, tam, this);
+        lastTileCreated.SetProperties(newX, tilesCreated, tam, this, offY);
         tiles.Add(lastTileCreated);
         tilesCreated++;
 
